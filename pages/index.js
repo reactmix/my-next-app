@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import items from './data/items'
+import { motion, AnimatePresence } from "framer-motion"
 
 export const getServerSideProps = async () => {
   return {
@@ -10,9 +11,19 @@ export const getServerSideProps = async () => {
   }
 }
 
+const transition = {
+  ease: "easeInOut"
+};
+
 export default function Home({ items }) {
   return (
-    <div>
+    <AnimatePresence>
+    <motion.div
+        initial={{ opacity: 0, x: '1000px' }}
+        animate={{ opacity: 1, x: '0px' }}
+        exit={{ opacity: 0, x: '-1000px' }}
+        transition={transition}
+      >
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
@@ -27,6 +38,7 @@ export default function Home({ items }) {
           ))}
         </ul>
       </main>
-    </div>
+    </motion.div>
+    </AnimatePresence>
   )
 }
