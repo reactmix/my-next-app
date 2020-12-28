@@ -1,7 +1,9 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import items from './data/items'
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion"
+import styled from 'styled-components'
+import { useState } from 'react'
 
 export const getServerSideProps = async () => {
   return {
@@ -15,13 +17,32 @@ const transition = {
   ease: "easeInOut"
 };
 
+const Bullet = styled(motion.span)`
+  display:inline-block;
+  width:10px;
+  height:10px;
+  background-color:red;
+  border-radius: 5px;
+  position:absolute;
+  top:20px;
+  left:-25px;
+`
+
+const ListItem = styled.li`
+  position:relative;
+  list-style:none;
+  font-size:28pt;
+`
+
 export default function Home({ items }) {
+
+  const [ focus, setFocus ] = useState(null) 
+
   return (
-    <AnimatePresence>
     <motion.div
-        initial={{ opacity: 0, x: '1000px' }}
-        animate={{ opacity: 1, x: '0px' }}
-        exit={{ opacity: 0, x: '-1000px' }}
+        initial={{ opacity: 0, x: '1000px', backgroundColor: 'black' }}
+        animate={{ opacity: 1, x: '0px', backgroundColor: 'white' }}
+        exit={{ opacity: 0, x: '1000px' }}
         transition={transition}
       >
       <Head>
@@ -29,16 +50,31 @@ export default function Home({ items }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <AnimatePresence>
       <main>
-        <ul>
+        <AnimateSharedLayout>
+        <ul style={{backgroundColor: '#ccc'}}>
           {items.map(x => (
-            <li key={ x.id }>
-              <Link href={"/detail/?id="+x.id}>{ x.name }</Link>
-            </li>
+            <ListItem key={ x.id }>
+              <span onMouseEnter={()=>setFocus(x.id)} onMouseLeave={()=>setFocus(null)}>
+                <AnimatePresence>
+                  {(focus === x.id) &&
+                    <Bullet             
+                      initial={{ x: 0 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -100 }}
+                      layoutId="moving-bullet">
+                    </Bullet>
+                  }
+                </AnimatePresence>
+                <Link href={"/detail/?id="+x.id}>{ x.name }</Link>
+              </span>
+            </ListItem>
           ))}
         </ul>
+        </AnimateSharedLayout>
       </main>
+      </AnimatePresence>
     </motion.div>
-    </AnimatePresence>
   )
 }

@@ -17,7 +17,7 @@ const transition = {
 export default function Item({ item }) {
   return (
     <AnimatePresence>
-    <motion.div
+    <motion.div  style={{backgroundColor: '#333', color:'white'}}
         initial={{ opacity: 0, x: '1000px' }}
         animate={{ opacity: 1, x: '0px' }}
         exit={{ opacity: 0, x: '-1000px' }}
