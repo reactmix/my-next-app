@@ -1,10 +1,11 @@
-import { GetServerSideProps } from 'next'
-import Head from 'next/head'
 import Link from 'next/link'
-import items, { DataItemList } from './data/items'
+import items from './data/items'
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion"
 import styled from 'styled-components'
-import { useState, FC } from 'react'
+import { useState } from 'react'
+// import types
+import { GetServerSideProps } from 'next'
+import { DataItemList } from './data/items'
 
 interface HomeProps {
   items: DataItemList
@@ -50,11 +51,6 @@ export default function Home({ items }: HomeProps) {
         animate={{ opacity: 1, x: '0px', backgroundColor: 'white' }}
         transition={transition}
       >
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <AnimatePresence>
       <main>
         <AnimateSharedLayout>
