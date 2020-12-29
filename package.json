@@ -16,6 +16,9 @@
     "zustand": "^3.2.0"
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "^1.12.0"
+    "@types/node": "^14.14.16",
+    "@types/react": "^17.0.0",
+    "babel-plugin-styled-components": "^1.12.0",
+    "typescript": "^4.1.3"
   }
 }

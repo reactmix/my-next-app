@@ -1,16 +1,22 @@
+import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
 import items from './data/items'
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion"
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, FC } from 'react'
 
-export const getServerSideProps = async () => {
-  return {
-    props: { 
-      items: items.getItems()
-    }
+interface HomeProps {
+  items: Array<{ id: Number, name: String }>
+}
+
+type FocusState = Number | null
+
+export const getServerSideProps: GetServerSideProps<HomeProps> = async function() {
+  const props = { 
+    items: items.getItems() 
   }
+  return { props }
 }
 
 const transition = {
@@ -34,9 +40,9 @@ const ListItem = styled.li`
   font-size:28pt;
 `
 
-export default function Home({ items }) {
+export default function Home({ items }: HomeProps) {
 
-  const [ focus, setFocus ] = useState(null) 
+  const [ focus, setFocus ] = useState<FocusState>(null) 
 
   return (
     <motion.div
