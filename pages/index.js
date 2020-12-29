@@ -40,9 +40,8 @@ export default function Home({ items }) {
 
   return (
     <motion.div
-        initial={{ opacity: 0, x: '1000px', backgroundColor: 'black' }}
+        initial={{ opacity: 0, x: '-1000px', backgroundColor: 'black' }}
         animate={{ opacity: 1, x: '0px', backgroundColor: 'white' }}
-        exit={{ opacity: 0, x: '1000px' }}
         transition={transition}
       >
       <Head>
