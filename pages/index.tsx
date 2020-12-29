@@ -41,6 +41,13 @@ const ListItem = styled.li`
   font-size:28pt;
 `
 
+const animateBulletProps = {
+  initial: { x: 0 },
+  animate: { opacity: 1, x: 0 },
+  exit: {opacity: 0, x: -100 },
+  layoutId: "moving-bullet"
+}
+
 export default function Home({ items }: HomeProps) {
 
   const [ focus, setFocus ] = useState<FocusState>(null) 
@@ -60,12 +67,7 @@ export default function Home({ items }: HomeProps) {
               <span onMouseEnter={()=>setFocus(x.id)} onMouseLeave={()=>setFocus(null)}>
                 <AnimatePresence>
                   {(focus === x.id) &&
-                    <Bullet             
-                      initial={{ x: 0 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -100 }}
-                      layoutId="moving-bullet">
-                    </Bullet>
+                    <Bullet {...animateBulletProps}></Bullet>
                   }
                 </AnimatePresence>
                 <Link href={"/detail/?id="+x.id}>{ x.name }</Link>
