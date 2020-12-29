@@ -1,13 +1,13 @@
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import items from './data/items'
+import items, { DataItemList } from './data/items'
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion"
 import styled from 'styled-components'
 import { useState, FC } from 'react'
 
 interface HomeProps {
-  items: Array<{ id: Number, name: String }>
+  items: DataItemList
 }
 
 type FocusState = Number | null

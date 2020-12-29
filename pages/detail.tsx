@@ -1,20 +1,24 @@
-import items from './data/items'
+import { GetServerSideProps } from 'next'
+import items, { DataItem } from './data/items'
 import { motion, AnimatePresence } from "framer-motion"
 
-export const getServerSideProps = async (req) => {
-  const id = parseInt(req.query.id)
-  return {
-    props: { 
-      item: items.getItemById(id)
-    }
+interface DetailProps {
+  item: DataItem
+}
+
+export const getServerSideProps: GetServerSideProps<DetailProps> = async (context) => {
+  const id = parseInt(context.query.id as string)
+  const props = {
+    item: items.getItemById(id)
   }
+  return { props }
 }
 
 const transition = {
   ease: "easeInOut"
 };
 
-export default function Item({ item }) {
+export default function Detail({ item }: DetailProps) {
   return (
     <AnimatePresence>
     <motion.div  style={{backgroundColor: '#333', color:'white'}}
