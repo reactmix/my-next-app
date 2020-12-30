@@ -41,6 +41,13 @@ const ListItem = styled.li`
   font-size:28pt;
 `
 
+const Page = styled(motion.div)`
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+`
+
 const animateBulletProps = {
   initial: { x: 0 },
   animate: { opacity: 1, x: 0 },
@@ -53,12 +60,12 @@ export default function Home({ items }: HomeProps) {
   const [ focus, setFocus ] = useState<FocusState>(null) 
 
   return (
-    <motion.div
-        initial={{ opacity: 0, x: '-1000px', backgroundColor: 'black' }}
-        animate={{ opacity: 1, x: '0px', backgroundColor: 'white' }}
+    <Page
+        initial={{ opacity: 0, x: '-1000px' }}
+        animate={{ opacity: 1, x: '0px' }}
+        exit={{ opacity: 1, x: '-1000px' }}
         transition={transition}
       >
-      <AnimatePresence>
       <main>
         <AnimateSharedLayout>
         <ul style={{backgroundColor: '#ccc'}}>
@@ -77,7 +84,6 @@ export default function Home({ items }: HomeProps) {
         </ul>
         </AnimateSharedLayout>
       </main>
-      </AnimatePresence>
-    </motion.div>
+    </Page>
   )
 }
