@@ -12,17 +12,9 @@ export interface DataItem {
 
 export type DataItemList = Array<DataItem>
 
-interface GetItems {
-  (): (DataItemList)
-}
-
-interface GetItemById {
-  (id: number): (DataItem | undefined)
-}
-
 interface ItemsModel {
-  getItems: GetItems
-  getItemById: GetItemById
+  getItems: () => (DataItemList)
+  getItemById: (id: number) => (DataItem | undefined)
 }
 
 const itemsModel: ItemsModel = {
